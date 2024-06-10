@@ -57,20 +57,8 @@
             <audio autoplay loop>
                 <source src="./audio321.mp3" type="audio/mp3">
             </audio>
-        <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            var audio = document.getElementById('background-audio');
-            if (audio) {
-                var playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        console.log('Audio is playing automatically.');
-                    }).catch(error => {
-                        console.error('Audio playback was prevented:', error);
-                    });
-                }
-            }
-        });
-    </script>
+       </div>
+    </div>
 </body>
 </html>
+
