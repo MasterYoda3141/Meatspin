@@ -32,12 +32,26 @@
             margin-top: 10px;
             animation: none;
         }
-        @keyframes colorChange {
-            0% { color: red; }
-            25% { color: blue; }
-            50% { color: green; }
-            75% { color: orange; }
-            100% { color: red; }
+        .corner-message {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            font-size: 1.2em;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .video-container {
             width: 80%;
@@ -58,9 +72,92 @@
             font-size: 1.5em;
             border: 2px dashed #aaa;
         }
+        #startButton {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        #startButton:hover {
+            background-color: #45a049;
+        }
+        .arrow-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff0000;
+            animation: bounce 1s infinite;
+        }
+        .arrow-text {
+            color: #ff0000;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.querySelector('audio');
+            const startButton = document.getElementById('startButton');
+            
+            // Create timer element
+            const timerElement = document.createElement('div');
+            timerElement.id = 'timer';
+            document.body.appendChild(timerElement);
+
+            // Timer functionality
+            let seconds = 0;
+            const timer = setInterval(function() {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                timerElement.textContent = `Czas Stawania Się GP Idącym Do Kaktusa: ${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+            
+            // Function to play audio
+            function playAudio() {
+                audio.volume = 1.0;
+                audio.play().catch(function(error) {
+                    console.log("Audio play failed:", error);
+                });
+                startButton.style.display = 'none'; // Hide the button after clicking
+                document.querySelector('.arrow').style.display = 'none'; // Hide the arrow
+                document.querySelector('.arrow-text').textContent = 'Cactus Membership Under Review'; // Change the text
+            }
+
+            // Add click event to the start button
+            startButton.addEventListener('click', playAudio);
+
             const letters = ["J", "E", "S", "T", "E", "Ś", " ","P", "R", "A", "W", "D", "Z", "I", "W", "Y", "M", " ", "G", "P", " ", "J", "E", "Ś", "L", "I", " ", "N", "A", "D", "A", "L", " ", "T", "U", " ", "J", "E", "S", "T", "E", "Ś"];
             let currentIndex = 0;
             const h2 = document.querySelector("h2");
@@ -90,19 +187,29 @@
                 message3.textContent = "prawdziwy GP z ciebie";
                 document.body.appendChild(message3);
             }, 60000);
+
+            // Add corner message after 30 seconds
+            setTimeout(function() {
+                const cornerMessage = document.createElement("div");
+                cornerMessage.className = "corner-message";
+                cornerMessage.textContent = "Gp by sie wyjebał w dupcie";
+                document.body.appendChild(cornerMessage);
+            }, 30000);
         });
     </script>
 </head>
 <body>
     <h1>YOU ARE OFFICIALLY GP IF YOU ARE HERE FOR MORE THAN 10 SEC</h1>
     <h2></h2>
-    <div class="video-container">
-        <div class="video-placeholder">
-            <video src="./video-placeholder.mp4" width="100%" height="100%" autoplay loop muted></video>
-            <audio loop autoplay controls>
-                <source src="./PanJan.mp3" type="audio/mpeg">
-            </audio>
-       </div>
+    <div class="arrow-container">
+        <div class="arrow-text">Become Cactus Member</div>
+        <div class="arrow"></div>
     </div>
+    <button id="startButton">Start</button>
+    <video src="./video-placeholder.mp4" autoplay loop muted></video>
+    <audio loop>
+        <source src="./audio321.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
