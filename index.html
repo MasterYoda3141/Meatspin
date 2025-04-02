@@ -41,6 +41,27 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
+        .corner-message-right {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            font-size: 1.2em;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .left-side-message {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
         .cactus-image {
             position: fixed;
             right: 20px;
@@ -216,6 +237,22 @@
                 cornerMessage.textContent = "Gp by sie wyjebał w dupcie";
                 document.body.appendChild(cornerMessage);
             }, 30000);
+
+            // Add right corner message after 60 seconds
+            setTimeout(function() {
+                const cornerMessageRight = document.createElement("div");
+                cornerMessageRight.className = "corner-message-right";
+                cornerMessageRight.textContent = "Już minuta mycia GP fiuta";
+                document.body.appendChild(cornerMessageRight);
+            }, 60000);
+
+            // Add left side message after 60 seconds
+            setTimeout(function() {
+                const leftSideMessage = document.createElement("div");
+                leftSideMessage.className = "left-side-message";
+                leftSideMessage.textContent = "Czas nie kutas nie stanie, chyba ze GP w kaktusie";
+                document.body.appendChild(leftSideMessage);
+            }, 60000);
 
             // Add cactus image after 40 seconds
             setTimeout(function() {
