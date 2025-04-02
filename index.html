@@ -122,6 +122,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             position: relative;
             top: -100px;
+            z-index: 1001;
         }
         .ralf-image {
             position: fixed;
@@ -133,6 +134,8 @@
             z-index: 1000;
             animation: rotate 5s infinite linear;
             margin-top: 100px;
+            display: block;
+            visibility: visible;
         }
         @keyframes rotate {
             from {
@@ -345,10 +348,12 @@
                 ralfImage.className = "ralf-image";
                 ralfImage.src = "./ralf.jpg";
                 ralfImage.alt = "Ralf";
+                ralfImage.style.display = 'block';
+                ralfImage.style.visibility = 'visible';
                 
                 const ralfText = document.createElement("div");
                 ralfText.className = "ralf-text";
-                ralfText.textContent = "Nagie czwartki w kaktusie lepiej niż w pusie";
+                ralfText.textContent = "Tak kończą ci co oglądają gpcactus";
                 
                 ralfContainer.appendChild(ralfImage);
                 ralfContainer.appendChild(ralfText);
