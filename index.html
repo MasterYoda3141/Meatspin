@@ -137,13 +137,8 @@
 
             // Timer functionality
             let seconds = 0;
-            const timer = setInterval(function() {
-                seconds++;
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                timerElement.textContent = `Czas Stawania Się GP Idącym Do Kaktusa: ${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-            }, 1000);
-            
+            let timer = null; // Initialize timer as null
+
             // Function to play audio
             function playAudio() {
                 audio.volume = 1.0;
@@ -153,6 +148,14 @@
                 startButton.style.display = 'none'; // Hide the button after clicking
                 document.querySelector('.arrow').style.display = 'none'; // Hide the arrow
                 document.querySelector('.arrow-text').textContent = 'Cactus Membership Under Review'; // Change the text
+                
+                // Start the timer when the button is clicked
+                timer = setInterval(function() {
+                    seconds++;
+                    const minutes = Math.floor(seconds / 60);
+                    const remainingSeconds = seconds % 60;
+                    timerElement.textContent = `Czas Stawania Się GP Idącym Do Kaktusa: ${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                }, 1000);
             }
 
             // Add click event to the start button
